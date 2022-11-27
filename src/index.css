@@ -1,13 +1,39 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 50px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* @import '~antd/dist/antd.css'; */
+
+.ant-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ant-card-body {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.ant-form-item {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ant-form-item-label {
+  text-align: left;
+}
+
+.ant-form-item-control-input-content {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  column-gap: 30px;
+  row-gap: 10px;
+}
+
+.ant-form-item-control-input-content button {
+  flex-grow: 1;
 }

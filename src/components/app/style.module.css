@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 30px;
+}
+
+.list {
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  column-gap: 30px;
+  row-gap: 30px;
+  justify-content: space-evenly;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.spinner {
+  display: block;
+  margin: 50px auto;
+}

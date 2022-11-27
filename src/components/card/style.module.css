@@ -1,0 +1,36 @@
+.done {
+  order: 1;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 50%;
+  transition: 0.3s ease-in;
+}
+
+.active {
+  color: white;
+  background-color: green;
+  border-color: green;
+}
+
+.outdated {
+  outline: 5px solid red;
+}
+
+.outdated .date {
+  color: red;
+}
+
+.text {
+  margin-right: auto;
+}
+
+.activeText,
+.activeText h2,
+.activeText .date {
+  color: #e5e5e5;
+}
+
+.date {
+  margin-top: 10px;
+  font-size: 12px;
+}
