@@ -45,10 +45,10 @@ const CardComponent: React.FC<CardComponentParams> = ({ handleFormStateChange, t
       <div className={`${styles.text} ${todo.isDone ? styles.activeText : ''}`}>
         <h2>{todo.title}</h2>
         <div>{todo.text}</div>
-        <div className={styles.date}>Дата завершения: {dayjs(todo.date).format('YYYY-MM-DD')}</div>
+        <div className={styles.date}>Completion date: {dayjs(todo.date).format('YYYY-MM-DD')}</div>
         {
           todo.files && todo.files.length
-            ? (<div className={styles.date}>Прикрепленные файлы: {
+            ? (<div className={styles.date}>Attached files: {
               todo.files.map((file: IFile) => {
                 return (<div key={file.url}><a href={file.url}>{file.name}</a></div>)
               })

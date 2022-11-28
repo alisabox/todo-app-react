@@ -59,17 +59,17 @@ const App: React.FC = () => {
   return (
     <>
       <div className={styles.header}>
-        <Button type="primary" htmlType="button" onClick={() => handleFormStateChange()}>Добавить задачу</Button>
+        <Button type="primary" htmlType="button" onClick={() => handleFormStateChange()}>Add a todo</Button>
         <div className={styles.counts}>
-          <p>Всего задач: {todos.length}</p>
-          <p className={styles.green}>Выполнено: {doneTodosNumber}</p>
-          <p className={styles.red}>Осталось: {todos.length - doneTodosNumber}</p>
+          <p>All todos: {todos.length}</p>
+          <p className={styles.green}>Done: {doneTodosNumber}</p>
+          <p className={styles.red}>Left: {todos.length - doneTodosNumber}</p>
         </div>
       </div>
       {
         isLoading
           ? (
-            <Spin className={styles.spinner} tip="Загружается..."></Spin>
+            <Spin className={styles.spinner} tip="Loading..."></Spin>
           )
           : (
             <div className={styles.list}>
