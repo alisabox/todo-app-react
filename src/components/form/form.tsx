@@ -44,15 +44,17 @@ const TodoForm: React.FC<TodoFormParams> = ({ isActive, handleFormStateChange, e
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   /**
-   * State of form indicating if data sending is in progress.
+   * State of form indicating if data sending/loading is in progress.
    */
   const [isSendingInProgress, setIsSendingInProgress] = useState<boolean>(false);
+  const [isLoadingInProgress, setIsLoadingInProgress] = useState<boolean>(false);
 
   /**
    * Fetches todo from database if the form is open is edit mode.
    */
   useEffect(() => {
     const getEditableTodo = async (id: string) => {
+      setIsLoadingInProgress(true);
       const { title, text, date, files } = await getTodo(id);
 
       form.setFieldsValue({
@@ -62,6 +64,7 @@ const TodoForm: React.FC<TodoFormParams> = ({ isActive, handleFormStateChange, e
       });
 
       files && setFileList(files);
+      setIsLoadingInProgress(false);
     }
 
     editableTodoId && getEditableTodo(editableTodoId);
@@ -158,77 +161,79 @@ const TodoForm: React.FC<TodoFormParams> = ({ isActive, handleFormStateChange, e
 
 
   return (
-    <Form
-      className={`${styles.form} ${isActive ? styles.active : ''}`}
-      form={form}
-      name="addClient"
-      onFinish={handleSubmit}
-      scrollToFirstError
-    >
-      {contextHolder}
-      <Spin spinning={isSendingInProgress}>
-        {
-          editableTodoId
-            ? <h2>Редактировать заметку</h2>
-            : <h2>Новая заметка</h2>
-        }
+    <div className={`${styles.overlay} ${isActive ? styles.active : ''}`}>
+      <Form
+        className={styles.form}
+        form={form}
+        name="addClient"
+        onFinish={handleSubmit}
+        scrollToFirstError
+      >
+        {contextHolder}
+        <Spin spinning={isSendingInProgress || isLoadingInProgress}>
+          {
+            editableTodoId
+              ? <h2>Редактировать задачу</h2>
+              : <h2>Новая задача</h2>
+          }
 
-        <Form.Item
-          name="title"
-          label="Заголовок"
-          rules={[
-            {
-              required: true,
-              message: 'Обязательное поле',
-              whitespace: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            name="title"
+            label="Заголовок"
+            rules={[
+              {
+                required: true,
+                message: 'Обязательное поле',
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          name="text"
-          label="Описание"
-          rules={[
-            {
-              required: true,
-              message: 'Обязательное поле',
-              whitespace: true,
-            },
-          ]}
-        >
-          <Input.TextArea />
-        </Form.Item>
+          <Form.Item
+            name="text"
+            label="Описание"
+            rules={[
+              {
+                required: true,
+                message: 'Обязательное поле',
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input.TextArea />
+          </Form.Item>
 
-        <Form.Item
-          name="date"
-          label="Дата завершения"
-          rules={[
-            {
-              required: true,
-              message: 'Обязательное поле',
-            },
-          ]}
-        >
-          <DatePicker placeholder="Выберите дату" disabledDate={(current) => dayjs().isAfter(current, 'day')} />
-        </Form.Item>
+          <Form.Item
+            name="date"
+            label="Дата завершения"
+            rules={[
+              {
+                required: true,
+                message: 'Обязательное поле',
+              },
+            ]}
+          >
+            <DatePicker placeholder="Выберите дату" disabledDate={(current) => dayjs().isAfter(current, 'day')} />
+          </Form.Item>
 
-        <Form.Item
-          name="files"
-          label="Прикрепить файлы"
-        >
-          <Upload {...props}>
-            <Button icon={<UploadOutlined />}>Выбрать файл</Button>
-          </Upload>
-        </Form.Item>
+          <Form.Item
+            name="files"
+            label="Прикрепить файлы"
+          >
+            <Upload {...props}>
+              <Button icon={<UploadOutlined />}>Выбрать файл</Button>
+            </Upload>
+          </Form.Item>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit">{editableTodoId ? 'Обновить' : 'Добавить'}</Button>
-          <Button htmlType="button" onClick={handleReset}>Отменить</Button>
-        </Form.Item>
-      </Spin>
-    </Form>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">{editableTodoId ? 'Обновить' : 'Добавить'}</Button>
+            <Button htmlType="button" onClick={handleReset}>Отменить</Button>
+          </Form.Item>
+        </Spin>
+      </Form>
+    </div>
   );
 };
 

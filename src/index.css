@@ -37,3 +37,7 @@ body {
 .ant-form-item-control-input-content button {
   flex-grow: 1;
 }
+
+.ant-upload-list-item-container .ant-upload-list-item {
+  max-width: 150px;
+}
